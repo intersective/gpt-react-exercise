@@ -1,40 +1,58 @@
-// src/App.js
-// src/App.js
+import React, { useState } from 'react';
+import './App.css';
 
-import React from 'react';
-import { useQuery } from '@apollo/client';
-import { GET_BADGES } from './queries';
-import './styles.css';
+const IMAGES = {
+  'my badges': [
+    'https://via.placeholder.com/150/FF0000/FFFFFF?text=Badge1',
+    'https://via.placeholder.com/150/00FF00/FFFFFF?text=Badge2',
+    'https://via.placeholder.com/150/0000FF/FFFFFF?text=Badge3'
+  ],
+  'my cert': [
+    'https://via.placeholder.com/150/FFFF00/FFFFFF?text=Cert1',
+    'https://via.placeholder.com/150/FF00FF/FFFFFF?text=Cert2',
+    'https://via.placeholder.com/150/00FFFF/FFFFFF?text=Cert3'
+  ],
+  'my data': [
+    'https://via.placeholder.com/150/F0F0F0/000000?text=Data1',
+    'https://via.placeholder.com/150/0F0F0F/FFFFFF?text=Data2',
+    'https://via.placeholder.com/150/333333/FFFFFF?text=Data3'
+  ]
+}
 
 function App() {
-  const { loading, error, data } = useQuery(GET_BADGES);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  const [selectedMenu, setSelectedMenu] = useState('my badges');
+  const [selectedImage, setSelectedImage] = useState(null);
+  
+  const handleMenuClick = (menu) => {
+    setSelectedMenu(menu);
+    setSelectedImage(null);
+  }
 
   return (
     <div className="App">
-      <h1>Badges</h1>
-      <div className="badges-list">
-        {data.getBadges.map((badge) => (
-          <div key={badge.id} className="badge-item">
-            <img src={badge.img} alt={badge.title} />
-            <h2>{badge.title}</h2>
-            <p>{badge.details}</p>
-            {badge.certificate && (
-              <div>
-                <h3>Certificate Information</h3>
-                <p>Name: {badge.certificate.name}</p>
-                <p>Email: {badge.certificate.email}</p>
-                <p>Date: {badge.certificate.date}</p>
-                <a href={badge.certificate.signedUrl} download>
-                  Download Certificate
-                </a>
-              </div>
-            )}
-          </div>
+      <div className="menu">
+      {Object.keys(IMAGES).map(menu => (
+          <button key={menu} onClick={() => handleMenuClick(menu)}>{menu}</button>
         ))}
       </div>
+      
+      {selectedImage ? (
+        <div className="details">
+          <img src={selectedImage} alt="Selected" />
+          <h2>Title</h2>
+          <p>Experience</p>
+          <p>Date</p>
+          <p>Name & Email Address</p>
+          <button>Update</button>
+          <button>Delete</button>
+        </div>
+      ) : (
+        <div className="gallery">
+          {IMAGES[selectedMenu].map(image => (
+            <img key={image} src={image} alt={selectedMenu} onClick={() => setSelectedImage(image)} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
