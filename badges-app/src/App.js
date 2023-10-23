@@ -26,10 +26,12 @@ function App() {
   
   const [selectedMenu, setSelectedMenu] = useState('my badges');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageInfo, setSelectedImageInfo] = useState(null);
 
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
     setSelectedImage(null);
+    setSelectedImageInfo(null); // Add this line to reset the info
   }
 
   if (loading) return <p>Loading...</p>;
@@ -49,14 +51,35 @@ function App() {
       {selectedImage ? (
         <Paper elevation={3} style={{ padding: '16px', marginTop: '20px' }}>
           <img src={selectedImage} alt="Selected" style={{ width: '100%' }} />
-          {/* ... rest of the details ... */}
+          {selectedImageInfo && (
+            <div>
+              <h3>Additional Information</h3>
+              <p>Title: {selectedImageInfo.title}</p>
+              <p>Experience: {selectedImageInfo.experience}</p>
+              <p>Date: {selectedImageInfo.date}</p>
+              <p>Name: {selectedImageInfo.name}</p>
+              <p>Email: {selectedImageInfo.email}</p>
+            </div>
+          )}
+          <button className="edit-button update-button">Update</button>
+          <button className="edit-button delete-button">Delete</button>
         </Paper>
       ) : (
         <Grid container spacing={2} justifyContent="center" style={{ marginTop: '20px' }}> 
         {data.getBadges.map((badge) => (
           <Grid item key={badge.id} xs={12} sm={6} md={4}>
             <Paper elevation={3}>
-              <img src={badge.imageUrl} alt={badge.title} style={{ width: '100%', cursor: 'pointer' }} onClick={() => setSelectedImage(badge.imageUrl)} />
+              <img src={badge.imageUrl} alt={badge.title} style={{ width: '100%', cursor: 'pointer' }} onClick={() => 
+                {
+                  setSelectedImage(badge.imageUrl);
+                  setSelectedImageInfo({
+                    title: badge.title,
+                    experience: badge.experience, // Add the relevant properties
+                    date: badge.date,             // Add the relevant properties
+                    name: badge.certificate.name, // Add the relevant properties
+                    email: badge.certificate.email, // Add the relevant properties
+                  });
+                }} />
               {/* {badge.certificate && (
               <div>
                 <h3>Certificate Information</h3>
