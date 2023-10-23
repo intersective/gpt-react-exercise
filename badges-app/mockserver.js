@@ -42,7 +42,7 @@ const mocks = {
         id: "1",
         title: "Badge 1",
         details: "Badge 1 details",
-        imageUrl: "https://example.com/badge1.png",
+        imageUrl: "https://via.placeholder.com/150/FF0000/FFFFFF?text=Badge1",
         date: new Date().toISOString(),
         email: "user@example.com",
         certificate: {

@@ -5,15 +5,12 @@ export const GET_BADGES = gql`
     getBadges {
       id
       title
-      img
+      imageUrl
       details
+      email
+      date
       certificate {
-        name
-        email
-        date
-        s3Bucket
-        s3Key
-        signedUrl
+        s3Url
       }
     }
   }
