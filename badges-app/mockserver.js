@@ -49,6 +49,28 @@ const mocks = {
           s3Url: "https://s3.example.com/cert1.pdf"
         }
       },
+      {
+        id: "2",
+        title: "Badge 2",
+        details: "Badge 2 details",
+        imageUrl: "https://via.placeholder.com/150/00FF00/FFFFFF?text=Badge2",
+        date: new Date().toISOString(),
+        email: "user@example.com",
+        certificate: {
+          s3Url: "https://s3.example.com/cert2.pdf"
+        }
+      },
+      {
+        id: "3",
+        title: "Badge 3",
+        details: "Badge 3 details",
+        imageUrl: "https://via.placeholder.com/150/0000FF/FFFFFF?text=Badge3",
+        date: new Date().toISOString(),
+        email: "user@example.com",
+        certificate: {
+          s3Url: "https://s3.example.com/cert3.pdf"
+        }
+      },
       // ... more mock badges ...
     ])
   }),
