@@ -8,7 +8,7 @@ const typeDefs = `
     id: ID!
     title: String!
     details: String!
-    imgUrl: String!
+    imageUrl: String!
     date: String!
     email: String!
     certificate: Certificate
@@ -54,11 +54,10 @@ const mocks = {
   }),
   // ... other mocks ...
 };
+const schemaWithoutMocks = makeExecutableSchema({ typeDefs });
+const schemaWithMocks = addMocksToSchema({ schema: schemaWithoutMocks, mocks });
 
-const schema = makeExecutableSchema({ typeDefs });
-addMocksToSchema({ schema, mocks });
-
-const server = new ApolloServer({ schema });
+const server = new ApolloServer({ schema: schemaWithMocks });
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Mock GraphQL API ready at ${url}`);
