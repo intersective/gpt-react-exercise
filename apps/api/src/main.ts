@@ -1,7 +1,7 @@
 import { Server } from 'http';
 import exitHook from 'async-exit-hook';
 
-import { delay } from '@badges/library/delay';
+// import { delay } from '@badges/library/delay';
 
 import { startServer, stopServer } from './server';
 
@@ -23,11 +23,11 @@ exitHook.unhandledRejectionHandler((e) => {
 
 exitHook(async (callback: () => void) => {
   await stopServer(server);
-  await delay(10);
+  // await delay(10);
   callback();
 });
 
 exitHook.uncaughtExceptionHandler(async () => {
-  await delay(10);
+  // await delay(10);
   process.exit(-1);
 });

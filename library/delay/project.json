@@ -9,8 +9,9 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/library/delay",
-        "main": "library/delay/src/index.ts",
         "tsConfig": "library/delay/tsconfig.lib.json",
+        "packageJson": "library/delay/package.json",
+        "main": "library/delay/src/index.ts",
         "assets": ["library/delay/*.md"]
       }
     },

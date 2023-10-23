@@ -8,19 +8,13 @@ Monorepo powered by [NX](https://nx.dev/)
 
 To test add `--dry-run` on the end.
 
-`nx generate @nrwl/js:library --name=hello-tsc --buildable --directory=library`
+`nx generate @nx/node:library --name=delay --buildable --directory=library`
 
 ### Create a TypeScript based application
 
 To test add `--dry-run` on the end.
 
 `nx generate @nrwl/node:app api --directory apps`
-
-### Create a new Model
-
-To test add `--dry-run` on the end.
-
-`nx generate @nrwl/js:library --name=account --buildable --directory=model`
 
 ### Create Next App
 
