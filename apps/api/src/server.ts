@@ -4,8 +4,8 @@ import { Server } from 'http';
 import Koa, { Context } from 'koa';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 
-
 import { typeDefs } from './gql/schema';
+import { resolvers } from './gql/resolver';
 
 export const startServer = async (): Promise<Server> => {
   console.log('Starting GraphQL server.');
@@ -13,13 +13,10 @@ export const startServer = async (): Promise<Server> => {
 
   const apolloServer = new ApolloServer({
     cache: 'bounded',
-    introspection: process.env.ENVIRONMENT === 'production' ? true : false,
+    introspection: process.env.NODE_ENV !== 'production',
     schema: makeExecutableSchema({
       typeDefs,
       resolvers,
-      schemaDirectives: {
-        auth: IsAuthDirective,
-      },
     }),
     context: (ctx: Context) => {
       return ctx;
@@ -30,7 +27,7 @@ export const startServer = async (): Promise<Server> => {
   await apolloServer.start();
   apolloServer.applyMiddleware({ app });
 
-  const port = process.env['PORT'] || "8080";
+  const port = process.env['PORT'] || '8080';
 
   const server = app.listen(port, () => {
     console.log(
@@ -41,4 +38,7 @@ export const startServer = async (): Promise<Server> => {
   return server;
 };
 
-export const stopServer = () => {};
+export const stopServer = async (server: Server): Promise<void> => {
+  await new Promise((resolve) => server.close(resolve));
+  console.log(`🚀⚙️  GraphQL server stopped.`);
+};
