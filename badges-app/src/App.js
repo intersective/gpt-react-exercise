@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button, Grid, Paper, Container } from '@mui/material';
 import './App.css';
 
 const IMAGES = {
@@ -22,38 +23,41 @@ const IMAGES = {
 function App() {
   const [selectedMenu, setSelectedMenu] = useState('my badges');
   const [selectedImage, setSelectedImage] = useState(null);
-  
+
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
     setSelectedImage(null);
   }
 
   return (
-    <div className="App">
-      <div className="menu">
-      {Object.keys(IMAGES).map(menu => (
-          <button key={menu} onClick={() => handleMenuClick(menu)}>{menu}</button>
+    <Container maxWidth="lg">
+      <Grid container spacing={2} justifyContent="center">
+        {Object.keys(IMAGES).map(menu => (
+          <Grid item key={menu}>
+            <Button variant="contained" color="primary" onClick={() => handleMenuClick(menu)}>
+              {menu}
+            </Button>
+          </Grid>
         ))}
-      </div>
-      
+      </Grid>
+
       {selectedImage ? (
-        <div className="details">
-          <img src={selectedImage} alt="Selected" />
-          <h2>Title</h2>
-          <p>Experience</p>
-          <p>Date</p>
-          <p>Name & Email Address</p>
-          <button>Update</button>
-          <button>Delete</button>
-        </div>
+        <Paper elevation={3} style={{ padding: '16px', marginTop: '20px' }}>
+          <img src={selectedImage} alt="Selected" style={{ width: '100%' }} />
+          {/* ... rest of the details ... */}
+        </Paper>
       ) : (
-        <div className="gallery">
+        <Grid container spacing={2} justifyContent="center" style={{ marginTop: '20px' }}>
           {IMAGES[selectedMenu].map(image => (
-            <img key={image} src={image} alt={selectedMenu} onClick={() => setSelectedImage(image)} />
+            <Grid item key={image} xs={12} sm={6} md={4}>
+              <Paper elevation={3}>
+                <img src={image} alt={selectedMenu} style={{ width: '100%', cursor: 'pointer' }} onClick={() => setSelectedImage(image)} />
+              </Paper>
+            </Grid>
           ))}
-        </div>
+        </Grid>
       )}
-    </div>
+    </Container>
   );
 }
 
