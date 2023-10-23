@@ -1,0 +1,71 @@
+.badges-page-layout {
+  display: flex;
+}
+
+.left-menu {
+  width: 20%; /* adjust as needed */
+  border-right: 1px solid #ddd;
+  padding: 10px;
+}
+
+.left-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.left-menu li {
+  margin-bottom: 10px;
+}
+
+.badges-container {
+  flex-grow: 1;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.badges-container {
+  flex-grow: 1;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;  /* Aligns items to the start of the container */
+}
+
+.badge {
+  flex-basis: calc(33.33% - 10px);  /* Width of each badge minus the gap */
+  box-sizing: border-box;  /* Includes padding and border in the element's total width and height */
+  display: flex;
+  justify-content: center;  /* Centers the image horizontally inside the badge */
+  align-items: center;     /* Centers the image vertically inside the badge */
+}
+
+.badge img {
+  width: 90%;  /* Adjust as needed, this is 90% of the badge width */
+  height: auto;
+  object-fit: cover;
+}
+
+
+/* BadgeDetail.css */
+.badge-detail-container {
+  max-width: 600px; /* Adjust as needed */
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.badge-image {
+  width: 100%;
+  max-width: 400px; /* Adjust based on your requirements */
+  margin-bottom: 20px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
