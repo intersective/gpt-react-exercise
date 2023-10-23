@@ -5,12 +5,19 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@graphql-tools/schema": "^10.0.0",
     "@nx/next": "16.10.0",
     "@swc/helpers": "~0.5.2",
+    "apollo-server-core": "^3.12.1",
+    "apollo-server-koa": "^3.12.1",
+    "async-exit-hook": "^2.0.1",
     "axios": "^1.0.0",
+    "dotenv": "^16.3.1",
+    "koa": "^2.14.2",
     "next": "13.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "reflect-metadata": "^0.1.13",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -37,7 +44,7 @@
     "@vitest/coverage-c8": "~0.32.0",
     "@vitest/ui": "~0.32.0",
     "babel-jest": "^29.4.1",
-    "esbuild": "^0.17.17",
+    "esbuild": "~0.19.2",
     "eslint": "~8.46.0",
     "eslint-config-next": "13.4.1",
     "eslint-config-prettier": "8.1.0",
