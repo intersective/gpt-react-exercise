@@ -1,0 +1,29 @@
+/* EditScreen.css */
+.edit-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.edit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.update-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.edit-button:hover {
+  opacity: 0.9;
+}

@@ -2,9 +2,16 @@
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   padding: 20px;
+  display: flex;
 }
 
 /* Styling for the MenuBar */
+.MenuBar-container {
+  text-align: left;
+  width: 20vw;
+  /* 1/5 of the viewport width */
+}
+
 .menu-button {
   padding: 10px 15px;
   margin-right: 10px;
@@ -20,6 +27,18 @@
 }
 
 /* Styling for the ImageView component */
+.ImageView-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.image-item {
+  flex-basis: calc(33.33% - 10px);
+  /* 3 images per row, minus some margin */
+  margin: 5px;
+}
+
 .image-container {
   display: flex;
   flex-wrap: wrap;
@@ -67,4 +86,37 @@
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.edit-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  /* Spacing out the buttons */
+  padding: 10px;
+}
+
+.edit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.update-button {
+  background-color: #4CAF50;
+  /* A green color */
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  /* A red color */
+  color: white;
+}
+
+/* Optional: Add a hover effect to give feedback to users */
+.edit-button:hover {
+  opacity: 0.9;
 }

@@ -9,9 +9,9 @@ function MenuBar({ onMenuChange }) {
 
   return (
     <div className="menu-bar">
-      <button onClick={() => handleMenuItemClick('menu1')}>Menu 1</button>
-      <button onClick={() => handleMenuItemClick('menu2')}>Menu 2</button>
-      <button onClick={() => handleMenuItemClick('menu3')}>Menu 3</button>
+      <button onClick={() => handleMenuItemClick('menu1')}>My Badges</button>
+      <button onClick={() => handleMenuItemClick('menu2')}>My Certs</button>
+      <button onClick={() => handleMenuItemClick('menu3')}>My Data</button>
     </div>
   );
 }
