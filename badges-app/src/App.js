@@ -59,6 +59,17 @@ function App() {
               <p>Date: {selectedImageInfo.date}</p>
               <p>Name: {selectedImageInfo.name}</p>
               <p>Email: {selectedImageInfo.email}</p>
+              <button
+                className="edit-button download-button"
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = selectedImageInfo.certUrl;
+                  link.download = 'certificate.pdf';
+                  link.click();
+                }}
+              >
+                Download Certificate
+              </button>
             </div>
           )}
           <button className="edit-button update-button">Update</button>
@@ -71,13 +82,15 @@ function App() {
             <Paper elevation={3}>
               <img src={badge.imageUrl} alt={badge.title} style={{ width: '100%', cursor: 'pointer' }} onClick={() => 
                 {
+                  console.log(badge);
                   setSelectedImage(badge.imageUrl);
                   setSelectedImageInfo({
                     title: badge.title,
                     experience: badge.experience, // Add the relevant properties
                     date: badge.date,             // Add the relevant properties
-                    name: badge.certificate.name, // Add the relevant properties
-                    email: badge.certificate.email, // Add the relevant properties
+                    name: badge.name, // Add the relevant properties
+                    email: badge.email, // Add the relevant properties
+                    certUrl: badge.certificate.s3Url // Add the relevant properties
                   });
                 }} />
               {/* {badge.certificate && (
