@@ -12,6 +12,7 @@ const typeDefs = `
     date: String!
     email: String!
     certificate: Certificate
+    category: String!
   }
 
   type Certificate {
@@ -37,45 +38,44 @@ const typeDefs = `
 
 const mocks = {
   Query: () => ({
-    getBadges: () => ([
-      {
-        id: "1",
-        title: "Badge 1",
-        details: "Badge 1 details",
-        imageUrl: "https://via.placeholder.com/150/FF0000/FFFFFF?text=Badge1",
-        date: new Date().toISOString(),
-        email: "user@example.com",
-        certificate: {
-          s3Url: "https://s3.example.com/cert1.pdf"
-        }
-      },
-      {
-        id: "2",
-        title: "Badge 2",
-        details: "Badge 2 details",
-        imageUrl: "https://via.placeholder.com/150/00FF00/FFFFFF?text=Badge2",
-        date: new Date().toISOString(),
-        email: "user@example.com",
-        certificate: {
-          s3Url: "https://s3.example.com/cert2.pdf"
-        }
-      },
-      {
-        id: "3",
-        title: "Badge 3",
-        details: "Badge 3 details",
-        imageUrl: "https://via.placeholder.com/150/0000FF/FFFFFF?text=Badge3",
-        date: new Date().toISOString(),
-        email: "user@example.com",
-        certificate: {
-          s3Url: "https://s3.example.com/cert3.pdf"
-        }
-      },
-      // ... more mock badges ...
-    ])
+    getBadges: () => {
+      const categories = ["badges", "certs", "data"];
+      const mockData = [];
+
+      // Extend the mock data with 15 more objects
+      for (let i = 4; i <= 18; i++) {
+        const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+        console.log(randomCategory);
+        mockData.push({
+          id: `${i}`,
+          title: `Badge ${i}`,
+          details: `Badge ${i} details`,
+          imageUrl: `https://via.placeholder.com/150/${getRandomColor()}/FFFFFF?text=Badge${i}`,
+          date: new Date().toISOString(),
+          email: "user@example.com",
+          certificate: {
+            s3Url: `https://s3.example.com/cert${i}.pdf`
+          },
+          category: randomCategory,
+        });
+      }
+
+      return mockData;
+    }
   }),
   // ... other mocks ...
 };
+
+// Helper function to generate random colors
+function getRandomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 const schemaWithoutMocks = makeExecutableSchema({ typeDefs });
 const schemaWithMocks = addMocksToSchema({ schema: schemaWithoutMocks, mocks });
 

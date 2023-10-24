@@ -6,6 +6,11 @@ import './App.css';
 
 function App() {
   const { loading, error, data } = useQuery(GET_BADGES);
+  const [selectedMenu, setSelectedMenu] = useState('my badges');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageInfo, setSelectedImageInfo] = useState(null);
+  const [filteredImages, setFilteredImages] = useState(data.getBadges);
+
   const IMAGES = {
     'my badges': [
       'https://via.placeholder.com/150/FF0000/FFFFFF?text=Badge1',
@@ -24,18 +29,34 @@ function App() {
     ]
   }
   
-  const [selectedMenu, setSelectedMenu] = useState('my badges');
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedImageInfo, setSelectedImageInfo] = useState(null);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+
+  const filterImagesByMenu = (menu) => {
+    const badges = data.getBadges;
+    console.log(badges);
+    return badges.filter((badge) => {
+      // You may need to adjust this logic based on your data structure.
+      if (menu === 'my badges') {
+        return badge.category === 'badges';
+      } else if (menu === 'my cert') {
+        return badge.category === 'certs';
+      } else if (menu === 'my data') {
+        return badge.category === 'data';
+      }
+      return true; // Return all items if no specific menu is selected.
+    });
+  };
 
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
     setSelectedImage(null);
     setSelectedImageInfo(null); // Add this line to reset the info
+    const filteredData = filterImagesByMenu(menu);
+    setFilteredImages(filteredData);
   }
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Container maxWidth="lg">
@@ -49,38 +70,45 @@ function App() {
         ))}
       </Grid>
       {selectedImage ? (
-        <Paper elevation={3} style={{ padding: '16px', marginTop: '20px' }}>
-          <img src={selectedImage} alt="Selected" style={{ width: '100%' }} />
-          {selectedImageInfo && (
-            <div>
-              <h3>Additional Information</h3>
-              <p>Title: {selectedImageInfo.title}</p>
-              <p>Experience: {selectedImageInfo.experience}</p>
-              <p>Date: {selectedImageInfo.date}</p>
-              <p>Name: {selectedImageInfo.name}</p>
-              <p>Email: {selectedImageInfo.email}</p>
-              <button
-                className="edit-button download-button"
-                onClick={() => {
-                  const link = document.createElement('a');
-                  link.href = selectedImageInfo.certUrl;
-                  link.download = 'certificate.pdf';
-                  link.click();
-                }}
-              >
-                Download Certificate
-              </button>
-            </div>
-          )}
-          <button className="edit-button update-button">Update</button>
-          <button className="edit-button delete-button">Delete</button>
+        <Paper elevation={3} style={{ padding: '16px', marginTop: '20px', display: 'flex' }}>
+          <div style={{ flex: '1 1 25%' }}>
+            <img src={selectedImage} alt="Selected" style={{ width: '100%' }} />
+          </div>
+          <div style={{ flex: '3 1 75%', paddingLeft: '16px' }}>
+            {selectedImageInfo && (
+              <div>
+                <h3>Additional Information</h3>
+                <p>Title: {selectedImageInfo.title}</p>
+                <p>Experience: {selectedImageInfo.experience}</p>
+                <p>Date: {selectedImageInfo.date}</p>
+                <p>Name: {selectedImageInfo.name}</p>
+                <p>Email: {selectedImageInfo.email}</p>
+                <button
+                  className="edit-button download-button"
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = selectedImageInfo.certUrl;
+                    link.download = 'certificate.pdf';
+                    link.click();
+                  }}
+                >
+                  Download Certificate
+                </button>
+                <button className="edit-button update-button">Update</button>
+                <button className="edit-button delete-button">Delete</button>
+              </div>
+            )}
+          </div>
         </Paper>
+
       ) : (
         <Grid container spacing={2} justifyContent="center" style={{ marginTop: '20px' }}> 
-        {data.getBadges.map((badge) => (
+          {filteredImages.map((badge) => (
           <Grid item key={badge.id} xs={12} sm={6} md={4}>
             <Paper elevation={3}>
-              <img src={badge.imageUrl} alt={badge.title} style={{ width: '100%', cursor: 'pointer' }} onClick={() => 
+              <img src={badge.imageUrl} alt={badge.title} style={{ 
+                width: '100%', cursor: 'pointer'
+              }} onClick={() => 
                 {
                   console.log(badge);
                   setSelectedImage(badge.imageUrl);
