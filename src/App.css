@@ -1,0 +1,38 @@
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.details img {
+  width: 300px;
+  height: 200px;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+  }
+  .details img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.gallery img {
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
